@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapps-deployment
+  labels:
+    app: webapps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapps
+  template:
+    metadata:
+      labels:
+        app: webapps
+    spec:
+      containers:
+      - name: webapps
+        image: <image:version> (ex nginx:1.14.2)
+        ports:
+        - containerPort: 8080
+          name: http-server
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapps-svc
+  labels:
+    name: webapps-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    name: webapps
