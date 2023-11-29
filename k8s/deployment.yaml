@@ -16,22 +16,8 @@ spec:
     spec:
       containers:
       - name: webapps
-        image: <image:version> (ex nginx:1.14.2)
+        image: <image:version> (ex 016246143337.dkr.ecr.eu-west-3.amazonaws.com/cleypanw/webapp-build:1908f8aeba76d2ee0a6bec5529a5ced3ee10858e)
         ports:
         - containerPort: 8080
           name: http-server
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: webapps-svc
-  labels:
-    name: webapps-svc
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-  selector:
-    name: webapps
